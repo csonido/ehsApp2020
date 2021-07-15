@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h3 class="viewpage-header">
+      {{ dataset['title'] }}
+  </h3>
+{% endblock %}
+
+
+{% if output %}
+  {{ output }}
+{% endif %}
+
+{% block content %}
+
+{% if dataset['add_link'] %}
+<a href="{{ url_for(dataset['add_link']) }}" class="waves-effect waves-light btn btn-small green">
+  <i class="material-icons left">add</i>Add
+</a>
+{% endif %}
+
+<table>
+  <thead>
+  {% for header in dataset['headers'] %}
+    <th>{{ header['name'] }}</th>
+  {% endfor %}
+  </thead>
+
+  <tbody>
+  {% for row in dataset['rows'] %}
+  <tr>
+    {% for header in dataset['headers'] %}
+
+      {% if header['action'] %}
+        <td><a href="{{ row[header['alias']] }}" class="btn btn-small">{{ header['name'] }}</a></td>
+      {% else %}
+        <td>{{ row[header['alias']] }}{{ header['index'] }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+  </tbody>
+  {% if dataset['headers'].__len__() == 0 %}
+    <tr>
+      <td class="viewpage-null-row" colspan="{{ dataset['headers'].__len__() }}">(No Records to Display)</td>
+    <tr/>
+  {% endif %}
+
+</table>
+{% endblock %}

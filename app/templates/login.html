@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/jqvmap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin-materialize.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Application Specific CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="row">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+              {% if category == 'error'%}
+                <li class="flash flash-{{ category }}">{{ message }}</li>
+              {% else %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
+
+  <div class="row">
+    <form action="{{ url_for('login') }}" class="card" method="post" novalidate>
+        <div class="col s12">
+            <h3 class="header">Login</h3>
+        </div>
+        {{ form.hidden_tag() }}
+      <div class="row">
+          <div class="input-field col s12">
+            {{ form.email(size=32)}}
+            {{ form.email.label }}
+          </div>
+          <div class="input-field col s12">
+              {{ form.password(size=32)}}
+              {{ form.password.label }}
+          </div>
+          <div class="col s12">
+              {{ form.submit(class_='btn waves-effect waves-light') }}
+          </div>
+      </div>
+        <hr/>
+        <div class="row">
+            <div class="col s12">
+              <a href="{{ url_for('register')}}">Create an account</a>
+          </div>
+        </div>
+    </form>
+  </div>
+</body>
+
+<footer>
+  {% block footer %}{% endblock %}
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/core/materialize/materialize.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
+
+<!-- External libraries -->
+
+<!-- jqvmap -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/core/materialize/jqvmap/jquery.vmap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/core/materialize/jqvmap/jquery.vmap.world.js') }}" charset="utf-8"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/core/materialize/jqvmap/jquery.vmap.sampledata.js') }}"></script>
+
+<!-- ChartJS -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/core/materialize/Chart.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/core/materialize/Chart.Financial.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+<script src="{{ url_for('static', filename='js/core/materialize/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/core/materialize/masonry.pkgd.min.js') }}"></script>
+
+<!-- Initialization script -->
+<script src="{{ url_for('static', filename='js/core/materialize/admin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/core/materialize/page-scripts/dashboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/core/materialize/init.js') }}"></script>
+
+</html>
